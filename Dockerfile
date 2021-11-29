@@ -21,6 +21,9 @@ RUN npm ci --production
 COPY . /usr/src/app
 # this is a hack to allow selected nested keys in queries (tested for Mongo)
 COPY CI/PSI/allow_nested_fields_model.js /usr/src/app/node_modules/loopback-datasource-juggler/lib/model.js
+# this is a backport from LB4 to speed up large POST requests
+COPY CI/PSI/utils.js /usr/src/app/node_modules/loopback-datasource-juggler/lib/
+COPY CI/PSI/relation-definition.js /usr/src/app/node_modules/loopback-datasource-juggler/lib/
 
 # Start the app
 CMD ["node", "."]
