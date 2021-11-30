@@ -32,7 +32,11 @@ const testdataset = {
   "accessGroups": [],
   "datasetName":"Example Data86",
   "history": ["this should be deleted"],
-  "createdBy": "this should be deleted as well"
+  "createdBy": "this should be deleted as well",
+  "techniques": [
+    { "pid": "1", "name": "a" },
+    { "pid": "2", "name": "a" }
+  ]
 };
 
 let app;
@@ -253,4 +257,29 @@ describe("Simple Dataset tests", () => {
         done();
       });
   });
+
+  it("should fail creating a dataset with non unique techniques", function (done) {
+    const ds = Object.keys(testdataset).reduce(
+      (o, k) => (o[k] = testdataset[k], o),
+      {});
+    ds["techniques"] = [
+      { "pid": "1", "name": "a" },
+      { "pid": "1", "name": "a" }
+    ];
+    request(app)
+      .post("/api/v3/Datasets?access_token=" + accessToken)
+      .send(ds)
+      .set("Accept", "application/json")
+      .expect(422)
+      .expect("Content-Type", /json/)
+      .end(function (err, res) {
+        if (err) {
+          JSON.parse(
+            res.error.text
+          ).error.details.messages.techniques.should.be.eql(["contains duplicate `pid`"]);
+        }
+        done();
+      });
+  });
+
 });
