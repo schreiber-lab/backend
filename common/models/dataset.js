@@ -177,6 +177,34 @@ module.exports = function(Dataset) {
     next();
   });
 
+  function hideEmails(result){
+    if(result.ownerEmail)result.ownerEmail="";
+    if(result.contactEmail)result.contactEmail="";
+    if(result.principalInvestigator)result.principalInvestigator="";
+    if(result.investigator)result.investigator="";
+    if(result.orcidOfOwner)result.orcidOfOwner="";
+  }
+
+  Dataset.afterRemote("**",function(ctx, unused, next){
+    //console.log("afterRemote,ctx.args:",ctx.args);
+    let accessToken=null;
+    if(ctx.args.options){
+      accessToken = ctx.args.options.accessToken;
+    }
+    if (!accessToken) {
+      if(ctx.result) {
+        if(Array.isArray(ctx.result)) {
+          ctx.result.forEach(function (result) {
+            hideEmails(result);
+          });
+        } else {
+          hideEmails(ctx.result);
+        }
+      }
+    }
+    next();
+  });
+
   Dataset.afterRemote("fullquery", function (ctx, someCollections, next) {
     if (ctx.args.fields.scientific) {
       const {
