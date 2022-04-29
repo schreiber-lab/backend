@@ -187,21 +187,21 @@ module.exports = function(Dataset) {
 
   Dataset.afterRemote("**",function(ctx, unused, next){
     //console.log("afterRemote,ctx.args:",ctx.args);
-    let accessToken=null;
-    if(ctx.args.options){
-      accessToken = ctx.args.options.accessToken;
-    }
-    if (!accessToken) {
-      if(ctx.result) {
-        if(Array.isArray(ctx.result)) {
-          ctx.result.forEach(function (result) {
-            hideEmails(result);
-          });
-        } else {
-          hideEmails(ctx.result);
-        }
+    // let accessToken=null;
+    // if(ctx.args.options){
+    //   accessToken = ctx.args.options.accessToken;
+    // }
+    // if (!accessToken) {
+    if(ctx.result) {
+      if(Array.isArray(ctx.result)) {
+        ctx.result.forEach(function (result) {
+          hideEmails(result);
+        });
+      } else {
+        hideEmails(ctx.result);
       }
     }
+    // }
     next();
   });
 
