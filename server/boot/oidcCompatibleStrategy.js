@@ -13,9 +13,13 @@ function _changeVerifyInputOrder(_verify) {
 class Strategy extends OIDCStrategy {
 
   constructor(options, verify) {
+    if (options.proxy) {
+      const HttpsProxyAgent = require('https-proxy-agent');
+      const httpsProxyAgent = new HttpsProxyAgent(options.proxy);
+      options.agent = httpsProxyAgent;
+    }
     options.skipUserProfile = false;
-    super(options, _changeVerifyInputOrder(verify));
-  }
+    super(options, _changeVerifyInputOrder(verify));  }
 }
 
 exports._changeVerifyInputOrder = _changeVerifyInputOrder;
