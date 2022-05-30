@@ -1,3 +1,4 @@
+# Test - To be removed
 # SciCat Metadata API Server
 [![Build Status](https://github.com/SciCatProject/catamel/actions/workflows/ci.yml/badge.svg?branch=develop)](https://github.com/SciCatProject/catamel/actions)
 [![DeepScan grade](https://deepscan.io/api/teams/8394/projects/20871/branches/581451/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=8394&pid=20871&bid=581451)
