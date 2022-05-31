@@ -1,6 +1,7 @@
 "use strict";
 const utils = require("./utils");
 const lodash = require("lodash");
+const util = require('util')
 module.exports = function (MongoQueryableModel) {
 
   // to get access to other models
@@ -748,7 +749,8 @@ module.exports = function (MongoQueryableModel) {
         ]
       }
       console.log("EQUAL_TO_STRING")
-      console.dir(thing)
+      console.log(util.inspect(thing, {showHidden: false, depth: null, colors: true}))
+      //console.dir(thing)
       match.$and.push(thing);
       break;
     }
@@ -767,7 +769,8 @@ module.exports = function (MongoQueryableModel) {
         ]
       }
       console.log("CONTAINS_STRING")
-      console.dir(thing)
+      console.log(util.inspect(thing, {showHidden: false, depth: null, colors: true}))
+      //console.dir(thing)
       match.$and.push(thing);
       break;
     }
