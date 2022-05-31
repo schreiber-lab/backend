@@ -734,8 +734,7 @@ module.exports = function (MongoQueryableModel) {
     const matchUnit = `${parameterFieldName}.${lhs}.unitSI`;
     switch (relation) {
     case "EQUAL_TO_STRING": {
-      console.log("HUHUHUHUHUHUHUHUHUHU")
-      match.$and.push({
+      thing = {
         $or: [{
           [matchKeyGeneric]: {
             $eq: rhs,
@@ -747,7 +746,9 @@ module.exports = function (MongoQueryableModel) {
           }
         }
         ]
-      });
+      }
+      console.log("HUHUHUHUHUHUHUHUHUHU",thing)
+      match.$and.push(thing);
       break;
     }
     case "EQUAL_TO_NUMERIC": {
