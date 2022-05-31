@@ -763,7 +763,7 @@ module.exports = function (MongoQueryableModel) {
         },
         {
           [`${matchKeyGeneric}.value`]: {
-            $regex: `/${rhs}`,
+            $regex: `/${rhs}/`,
           }
         }
         ]
