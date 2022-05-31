@@ -758,12 +758,12 @@ module.exports = function (MongoQueryableModel) {
       var thing = {
         $or: [{
           [matchKeyGeneric]: {
-            $regex: `\${rhs}\`,
+            $regex: `\\${rhs}\\` ,
           }
         },
         {
           [`${matchKeyGeneric}.value`]: {
-            $regex: `\${rhs}\`,
+            $regex: `\\${rhs}\\`,
           }
         }
         ]
