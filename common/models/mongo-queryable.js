@@ -747,7 +747,8 @@ module.exports = function (MongoQueryableModel) {
         }
         ]
       }
-      console.log("HUHUHUHUHUHUHUHUHUHU",thing)
+      console.log("EQUAL_TO_STRING")
+      console.dir(thing)
       match.$and.push(thing);
       break;
     }
@@ -765,7 +766,8 @@ module.exports = function (MongoQueryableModel) {
         }
         ]
       }
-      console.log("HUHUHUHUHUHUHUHUHUHU",thing)
+      console.log("CONTAINS_STRING")
+      console.dir(thing)
       match.$and.push(thing);
       break;
     }
