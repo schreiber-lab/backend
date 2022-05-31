@@ -751,6 +751,24 @@ module.exports = function (MongoQueryableModel) {
       match.$and.push(thing);
       break;
     }
+    case "CONTAINS_STRING": {
+      var thing = {
+        $or: [{
+          [matchKeyGeneric]: {
+            $eq: {"like": rhs},
+          }
+        },
+        {
+          [`${matchKeyGeneric}.value`]: {
+            $eq: {"like": rhs},
+          }
+        }
+        ]
+      }
+      console.log("HUHUHUHUHUHUHUHUHUHU",thing)
+      match.$and.push(thing);
+      break;
+    }
     case "EQUAL_TO_NUMERIC": {
       if (unit.length > 0) {
         const {
