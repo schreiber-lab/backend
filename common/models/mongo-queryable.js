@@ -2,6 +2,8 @@
 const utils = require("./utils");
 const lodash = require("lodash");
 const util = require('util')
+const escapeStringRegexp = require('escape-string-regexp')
+
 module.exports = function (MongoQueryableModel) {
 
   // to get access to other models
@@ -755,15 +757,16 @@ module.exports = function (MongoQueryableModel) {
       break;
     }
     case "CONTAINS_STRING": {
+      const escapedRhs = escapeStringRegexp(rhs);
       var thing = {
         $or: [{
           [matchKeyGeneric]: {
-            $regex: rhs ,
+            $regex: escapedRhs ,
           }
         },
         {
           [`${matchKeyGeneric}.value`]: {
-            $regex: rhs,
+            $regex: escapedRhs,
           }
         }
         ]
